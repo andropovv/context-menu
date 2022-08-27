@@ -1,42 +1,107 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    height: 100vh;
-    width: 100%;
-    padding: 2rem;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  width: 100%;
+  padding: 2rem;
 }
 
 .menu {
-    position: fixed;
-    z-index: 1000;
-    width: 150px;
-    background: #1b1a1a;
-    border-radius: 5px;
-    display: none;
-    list-style: none;
+  position: fixed;
+  z-index: 1000;
+  width: 150px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    4deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(46, 46, 46, 1) 35%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  border-radius: 5px;
+  display: none;
+  list-style: none;
+  animation-name: open-menu;
+  animation-duration: 2s;
 }
 
 .menu.open {
-    display: block;
+  display: block;
 }
 
 .menu .menu-item {
-    padding: 8px 10px;
-    font-size: 1rem;
-    color: #eee;
-    cursor: pointer;
-    transition: background-color .2s ease-in;
-    border-radius: inherit;
+  padding: 8px 10px;
+  font-size: 1rem;
+  color: rgb(143, 143, 143);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+  border-radius: inherit;
+  animation: item-open 0.5s;
 }
 
 .menu .menu-item:hover {
-    background: #343434;
+  box-shadow: 0px 0px 1px 1px black;
+  transition: box-shadow 0.3s ease;
+  background: linear-gradient(-45deg, #0c0c0c, #525252, #292929);
+  background-size: 400% 400%;
+  animation: gradient 2s linear infinite;
+}
+
+.menu .menu-item:active {
+  color: #b3b2b2;
+  box-shadow: none;
+  background: rgb(23, 2, 68);
+  background: linear-gradient(
+    4deg,
+    rgba(23, 2, 68, 1) 0%,
+    rgba(26, 0, 93, 1) 35%,
+    rgba(39, 0, 129, 1) 100%
+  );
+  transition: all 0.3s ease;
+}
+
+@keyframes open-menu {
+  0% {
+    max-height: 100vh;
+    opacity: 0;
+  }
+  0.1% {
+    max-height: 0;
+    opacity: 1;
+  }
+  100% {
+    max-height: 100vh;
+  }
+}
+
+@keyframes item-open {
+  0% {
+    color: white;
+  }
+  50% {
+    color: rgb(255, 255, 255);
+  }
+  100% {
+    color: rgb(143, 143, 143);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
