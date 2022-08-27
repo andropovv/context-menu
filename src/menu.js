@@ -52,8 +52,10 @@ export class ContextMenu extends Menu {
 
     this.close();
 
-    this.el.style.left = `${this.getLocation(event)[0]}px`;
-    this.el.style.top = `${this.getLocation(event)[1]}px`;
+    const location = this.getLocation(event);
+
+    this.el.style.left = `${location[0]}px`;
+    this.el.style.top = `${location[1]}px`;
 
     this.open();
   }
