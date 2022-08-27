@@ -1,5 +1,5 @@
 import { Module } from "../core/module";
-import { random } from "../utils";
+import { random, getRandomColor } from "../utils";
 import "./shape.css";
 
 export class ShapeModule extends Module {
@@ -32,6 +32,12 @@ export class ShapeModule extends Module {
 
     setTimeout(() => {
       this.removeFigure(figure);
+      figure.removeEventListener("mouseover", (e) =>
+        this.addTransform(e.target)
+      );
+      figure.removeEventListener("mouseleave", (e) =>
+        this.removeTransform(e.target)
+      );
     }, 5000);
   }
 
@@ -48,7 +54,7 @@ export class ShapeModule extends Module {
     const figure = document.createElement("div");
     figure.classList.add(this.getRandomClass());
     figure.style.transform = `scale(${random(2, 10) / 10})`;
-    figure.style.borderColor = this.getRandomColor();
+    figure.style.borderColor = getRandomColor();
 
     figure.style.position = "absolute";
     figure.style.left = `${this.getRandomPosition()[1]}px`;
@@ -66,15 +72,6 @@ export class ShapeModule extends Module {
       random(200, window.innerHeight - 200),
       random(200, window.innerWidth - 200),
     ];
-  }
-
-  getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
   }
 
   removeFigure(figure) {
