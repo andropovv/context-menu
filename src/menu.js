@@ -12,7 +12,6 @@ export class ContextMenu extends Menu {
 
     this.#contextMenuContainer = document.querySelector(this.containerSelector);
     this.#moduleList = [];
-    this.menuSize = [0, 0];
 
     this.#render(); // создаем элементы контекстного меню
     this.#setup(); // подключаем к неему обработчики
@@ -53,39 +52,46 @@ export class ContextMenu extends Menu {
 
     this.close();
 
-    if (this.distanceToBottom(event) && this.distanceToBottom(event)) {
-      this.el.style.top = `${event.clientY - this.menuSize[1]}px`;
-      this.el.style.left = `${event.clientX - this.menuSize[0]}px`;
-    } else if (this.distanceToBottom(event)) {
-      this.el.style.top = `${event.clientY - this.menuSize[1]}px`;
-      this.el.style.left = `${event.clientX}px`;
-    } else if (this.distanceToRightSide(event)) {
-      this.el.style.left = `${event.clientX - this.menuSize[0]}px`;
-      this.el.style.top = `${event.clientY}px`;
-    } else {
-      this.el.style.left = `${event.clientX}px`;
-      this.el.style.top = `${event.clientY}px`;
-    }
+    this.el.style.left = `${this.getLocation(event)[0]}px`;
+    this.el.style.top = `${this.getLocation(event)[1]}px`;
 
     this.open();
+  }
+
+  getLocation(event) {
+    const x = event.clientX;
+    const y = event.clientY;
+
+    let location = [x, y];
+    const menuSize = this.countMenuSize();
+
+    if (this.distanceToBottom(event)) location[1] = y - menuSize[1];
+    if (this.distanceToRightSide(event)) location[0] = x - menuSize[0];
+
+    return location;
   }
 
   // Вычисление размера меню
   countMenuSize() {
-    this.open();
-    this.menuSize[0] = this.el.offsetWidth;
-    this.menuSize[1] = this.el.offsetHeight;
-    this.close();
+    let menuSize = [];
+
+    this.el.classList.add("count-size");
+    menuSize[0] = this.el.offsetWidth;
+    menuSize[1] = this.el.offsetHeight;
+
+    this.el.classList.remove("count-size");
+
+    return menuSize;
   }
 
   // Расстояние до нижней границы
   distanceToBottom(event) {
-    if (window.innerHeight - event.clientY < this.menuSize[1]) return true;
+    return window.innerHeight - event.clientY < this.countMenuSize()[1];
   }
 
   // Расстояние до правой границы
   distanceToRightSide(event) {
-    if (window.innerWidth - event.clientX < this.menuSize[0]) return true;
+    return window.innerWidth - event.clientX < this.countMenuSize()[0];
   }
 
   // обработчик нажатия на пункты меню
@@ -119,7 +125,6 @@ export class ContextMenu extends Menu {
 
     this.#moduleList.push(module);
     this.#render(); // перерисовываем контекстное меню
-    this.countMenuSize();
   }
 
   // удаление
