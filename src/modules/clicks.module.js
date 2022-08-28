@@ -4,6 +4,7 @@ import "./clickModule.css";
 export class ClicksModule extends Module {
   #clickCounter;
   #clickHTML;
+  #startAnalysHTML;
 
   #timeOut;
   #clickContainer;
@@ -28,26 +29,33 @@ export class ClicksModule extends Module {
 
     this.#sumOfClicks = document.createElement("p");
     this.#sumOfClicks.className = "clicks";
+
+    this.#startAnalysHTML = document.createElement("h2");
+    this.#startAnalysHTML.className = "head";
+    this.#startAnalysHTML.innerText = "Анализ кликов активирован:";
   }
 
   trigger() {
-    if (this.#isAnalysActive()) {
-      this.#renderHTML(document.body, this.#clickContainer);
-      this.#renderHTML(this.#clickContainer, this.#clickHTML);
-      this.#renderHTML(this.#clickContainer, this.#dblClickHTML);
+    this.#renderHTML(this.#clickContainer, this.#startAnalysHTML);
+    setTimeout(() => {
+      if (this.#isAnalysActive()) {
+        this.#renderHTML(document.body, this.#clickContainer);
+        this.#renderHTML(this.#clickContainer, this.#clickHTML);
+        this.#renderHTML(this.#clickContainer, this.#dblClickHTML);
 
-      this.#clickEvent();
-      this.#dblClickEvent();
+        this.#clickEvent();
+        this.#dblClickEvent();
 
-      setTimeout(this.#removeEvents.bind(this), 5000);
-      setTimeout(this.#showStatistics.bind(this), 6000);
-      setTimeout(() => {
-        this.#removeElementFromDOM(this.#clickContainer);
-        this.#removeElementFromDOM(this.#clickHTML);
-        this.#removeElementFromDOM(this.#dblClickHTML);
-      }, 8000);
-      setTimeout(this.#resetCounters.bind(this), 9000);
-    } else alert("Анализ кликов уже запущен");
+        setTimeout(this.#removeEvents.bind(this), 5000);
+        setTimeout(this.#showStatistics.bind(this), 6000);
+        setTimeout(() => {
+          this.#removeElementFromDOM(this.#clickContainer);
+          this.#removeElementFromDOM(this.#clickHTML);
+          this.#removeElementFromDOM(this.#dblClickHTML);
+        }, 8000);
+        setTimeout(this.#resetCounters.bind(this), 9000);
+      } else alert("Анализ кликов уже запущен");
+    }, 1500);
   }
   // Проверяем активен ли анализ кликов
   #isAnalysActive() {
