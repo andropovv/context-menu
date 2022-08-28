@@ -5,18 +5,27 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
-
 }
 
 
 .clicks-wrapper {
+    width: 600px;
     flex-direction: column;
+    display: flex;
+        align-items: center;
     font-style: italic;
+        border-radius: 25px;
+            background: red;
 }
 
 .clicks {
     text-align: center;
     font-size: 45px;
     color: #00CC99;
+}
+.head {
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: bold;
+    color: darkkhaki;
 }
