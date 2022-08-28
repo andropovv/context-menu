@@ -2,6 +2,7 @@ import { Module } from "../core/module";
 import { random } from "../utils";
 import { getPhoto } from "../utils";
 import { newLoader } from "../utils";
+import { getRandomColor } from "../utils";
 import "./background.css";
 export class BackgroundModule extends Module {
   #url;
@@ -27,7 +28,8 @@ export class BackgroundModule extends Module {
         const photos = await getPhoto(this.#url);
         this.#photoArray = photos.map((el) => el.urls.full);
         this.#changeBg();
-      } catch {
+      } catch (e) {
+        getRandomColor()
       } finally {
         this.#loader.remove();
       }
