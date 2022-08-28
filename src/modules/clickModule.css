@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+
+.clicks-wrapper {
+    flex-direction: column;
+    font-style: italic;
+}
+
+.clicks {
+    text-align: center;
+    font-size: 45px;
+    color: #00CC99;
+}
