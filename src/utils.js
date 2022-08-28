@@ -30,7 +30,7 @@ export async function getPhoto(url) {
     const response = await fetch(url);
     return response.json();
   } catch (e) {
-    console.log(e);
+    throw new Error(e);
   }
 }
 
@@ -43,18 +43,8 @@ export function newLoader() {
   const loader = document.createElement("span");
   loader.innerText = "Loading...";
   loader.id = "loader";
-  loader.setAttribute("hidden", "");
   return loader;
 }
 
-export function createLoader() {
-  const load = document.querySelector("#loader");
-  console.log(load);
-  const isHidden = load.hasAttribute("hidden");
-  if (isHidden) {
-    load.removeAttribute("hidden");
-  } else {
-    load.setAttribute("hidden", "");
-  }
-}
+
 
