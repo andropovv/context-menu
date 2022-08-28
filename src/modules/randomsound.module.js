@@ -11,7 +11,7 @@ import Sound8 from ".././assets/audio/modulesSound/sound8.mp3";
 import Sound9 from ".././assets/audio/modulesSound/sound9.mp3";
 import Sound10 from ".././assets/audio/modulesSound/sound10.mp3";
 
-export class RandomSound extends Module {
+export class RandomSoundModule extends Module {
   #soundsArray;
 
   constructor(type, text) {

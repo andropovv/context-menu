@@ -33,22 +33,8 @@ export class ShapeModule extends Module {
 
     document.body.append(figure);
 
-    this.addTransform = this.addTransform.bind(this);
-    this.removeTransform = this.removeTransform.bind(this);
-
-    figure.addEventListener("mouseover", (e) => this.addTransform(e.target));
-    figure.addEventListener("mouseleave", (e) =>
-      this.removeTransform(e.target)
-    );
-
     setTimeout(() => {
       this.removeFigure(figure);
-      figure.removeEventListener("mouseover", (e) =>
-        this.addTransform(e.target)
-      );
-      figure.removeEventListener("mouseleave", (e) =>
-        this.removeTransform(e.target)
-      );
     }, 5000);
   }
 
@@ -71,6 +57,11 @@ export class ShapeModule extends Module {
     figure.style.left = `${this.getRandomPosition()[1]}px`;
     figure.style.top = `${this.getRandomPosition()[0]}px`;
 
+    figure.addEventListener("mouseover", (e) => this.addTransform(e.target));
+    figure.addEventListener("mouseleave", (e) =>
+      this.removeTransform(e.target)
+    );
+
     return figure;
   }
 
@@ -87,5 +78,9 @@ export class ShapeModule extends Module {
 
   removeFigure(figure) {
     document.body.removeChild(figure);
+    figure.removeEventListener("mouseover", (e) => this.addTransform(e.target));
+    figure.removeEventListener("mouseleave", (e) =>
+      this.removeTransform(e.target)
+    );
   }
 }
