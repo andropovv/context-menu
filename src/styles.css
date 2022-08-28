@@ -18,14 +18,13 @@ body {
   box-shadow: 0 0 15px #ffffff70;
   position: fixed;
   z-index: 1000;
-  width: 150px;
+  min-width: 150px;
+  max-width: 300px;
   background: rgb(0, 0, 0);
-  background: linear-gradient(
-    4deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(46, 46, 46, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: linear-gradient(4deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(46, 46, 46, 1) 35%,
+      rgba(0, 0, 0, 1) 100%);
 
   border-radius: 5px;
   display: block;
@@ -50,6 +49,11 @@ body {
   cursor: pointer;
   transition: background-color 0.2s ease-in;
   border-radius: inherit;
+  border-bottom: 1px solid #ffffff20;
+}
+
+.menu .menu-item:last-child {
+  border-bottom: 0;
 }
 
 .menu .menu-item:hover {
@@ -65,12 +69,10 @@ body {
   color: #b3b2b2;
   box-shadow: none;
   background: rgb(23, 2, 68);
-  background: linear-gradient(
-    4deg,
-    rgba(23, 2, 68, 1) 0%,
-    rgba(26, 0, 93, 1) 35%,
-    rgba(39, 0, 129, 1) 100%
-  );
+  background: linear-gradient(4deg,
+      rgba(23, 2, 68, 1) 0%,
+      rgba(26, 0, 93, 1) 35%,
+      rgba(39, 0, 129, 1) 100%);
   transition: all 0.3s ease;
 }
 
@@ -78,9 +80,11 @@ body {
   0% {
     background-position: 0 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0 50%;
   }

@@ -5,10 +5,10 @@ import { ClicksModule } from './modules/clicks.module';
 import { ShapeModule } from './modules/shape.module';
 import { TimerModule } from './modules/timer.module';
 
-const background = new BackgroundModule('back', 'Change back');
-const clicks = new ClicksModule('click', 'Click');
-const shape = new ShapeModule('shape', 'Shape');
-const timer = new TimerModule('timer', 'Timer');
+const background = new BackgroundModule('back', 'Изменить фон');
+const clicks = new ClicksModule('click', 'Анализ кликов');
+const shape = new ShapeModule('shape', 'Создать фигуру');
+const timer = new TimerModule('timer', 'Установить таймер');
 
 const contextMenu = new ContextMenu('#menu');
 
