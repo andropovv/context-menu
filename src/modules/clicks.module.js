@@ -41,9 +41,7 @@ export class ClicksModule extends Module {
     if (this.#isAnalysActive()) {
       this.#clickHTML.innerText = `Одиночных кликов: ${this.#clickCounter}`;
       this.#dblClickHTML.innerText = `Двойных кликов: ${this.#dblClickCounter}`;
-      this.#sumOfClicks.innerText = `Всего кликов: ${
-        this.#clickCounter + 2 * this.#dblClickCounter
-      }`;
+      this.#sumOfClicks.innerText = `Всего кликов: ${0}`;
 
       this.#showStatistics();
 
@@ -84,21 +82,26 @@ export class ClicksModule extends Module {
   }
   // Что нужно делать при одинарном клике
   #clickHandler() {
-    this.#timeOut = setTimeout(() => {
-      this.#clickCounter++;
-      this.#clickHTML.innerText = `Одиночных кликов: ${this.#clickCounter}`;
-    }, 200);
-    this.#sumOfClicks.innerText = `Всего кликов ${
-      this.#clickCounter + 2 * this.#dblClickCounter
-    }`;
+    if (event.target === document.body) {
+      this.#timeOut = setTimeout(() => {
+        this.#clickCounter++;
+        this.#clickHTML.innerText = `Одиночных кликов: ${this.#clickCounter}`;
+        this.#sumOfClicks.innerText = `Всего кликов ${
+          this.#clickCounter + 2 * this.#dblClickCounter
+        }`;
+      }, 200);
+      console.log(event.target);
+    }
+    
   }
   // Что нужно делать при двойном клике
   #dblClickHandler() {
-    clearTimeout(this.#timeOut);
-    clearTimeout(this.#timeOut - 1);
     this.#sumOfClicks.innerText = `Всего кликов ${
       this.#clickCounter + 2 * this.#dblClickCounter
     }`;
+    clearTimeout(this.#timeOut);
+    clearTimeout(this.#timeOut);
+    
     this.#dblClickCounter++;
     this.#dblClickHTML.innerText = `Двойных кликов: ${this.#dblClickCounter}`;
   }
