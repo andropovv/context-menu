@@ -65,7 +65,7 @@ export default class Notification {
 
 		setTimeout(() => {
 			this.hide();
-		}, 100000);
+		}, 10000);
 	}
 
 	hide() {
