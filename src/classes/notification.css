@@ -1,0 +1,45 @@
+.notifications-container {
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	width: 300px;
+}
+
+.notification {
+	font-size: 16px;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+	box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.075);
+	position: relative;
+	overflow: hidden;
+	transition: 0.3s opacity;
+	margin-bottom: 15px;
+}
+
+.notification:not(.notification--show) {
+	visibility: hidden;
+}
+
+.notification.notification--showing {
+	opacity: 0;
+	visibility: visible;
+}
+
+.notification__body {
+	background-color: #00000090;
+	padding: 15px;
+	font-style: italic;
+	color: #fff;
+}
+
+.notification__text {
+	font-size: 1rem;
+	line-height: 1.2;
+}
+
+.notification__subtext {
+	font-size: 0.8rem;
+	line-height: 1.2;
+	margin-top: 10px;
+	text-align: right;
+}

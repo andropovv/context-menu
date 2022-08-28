@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clicks-wrapper {
+    padding: 20px;
+    opacity: 0;
+        animation: ani 9s both;
+    width: 600px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    border-radius: 25px;
+    background: rgb(0, 0, 0);
+        background: linear-gradient(4deg,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(46, 46, 46, 1) 35%,
+                rgba(0, 0, 0, 1) 100%);
+    }
+    
+    
+    @keyframes ani {
+        0% {
+            opacity: 0;
+        }
+    
+        25% {
+            opacity: 1;
+        }
+    
+        45% {
+            opacity: 1;
+        }
+    
+        75% {
+            opacity: 1;
+        }
+    
+        99% {
+            opacity: 0;
+        }
+    }
+
+.clicks {
+    text-align: center;
+    font-size: 30px;
+    color: rgb(143, 143, 143);
+}
+.head {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: bold;
+    color: darkkhaki;
+    font-size: 30px;
+}

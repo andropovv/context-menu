@@ -1,42 +1,94 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    height: 100vh;
-    width: 100%;
-    padding: 2rem;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
 }
 
 .menu {
-    position: fixed;
-    z-index: 1000;
-    width: 150px;
-    background: #1b1a1a;
-    border-radius: 5px;
-    display: none;
-    list-style: none;
+  display: none;
+  box-shadow: 0 0 15px #ffffff70;
+  position: fixed;
+  z-index: 1000;
+  min-width: 150px;
+  max-width: 300px;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(4deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(46, 46, 46, 1) 35%,
+      rgba(0, 0, 0, 1) 100%);
+  border-radius: 5px;
+  list-style: none;
+  opacity: 0;
+  transition: opacity 0.1s ease;
 }
 
-.menu.open {
-    display: block;
+.open {
+  display: block;
+  opacity: 1;
+}
+
+.count-size {
+  display: block;
+  opacity: 0;
+  left: -10000px;
+  top: -5000px;
 }
 
 .menu .menu-item {
-    padding: 8px 10px;
-    font-size: 1rem;
-    color: #eee;
-    cursor: pointer;
-    transition: background-color .2s ease-in;
-    border-radius: inherit;
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: rgb(143, 143, 143);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+  border-radius: inherit;
+  border-bottom: 1px solid #ffffff20;
+}
+
+.menu .menu-item:last-child {
+  border-bottom: 0;
 }
 
 .menu .menu-item:hover {
-    background: #343434;
+  box-shadow: 0px 0px 1px 1px black;
+  color: white;
+  transition: box-shadow 0.3s ease;
+  background: linear-gradient(-45deg, #0c0c0c, #525252, #292929);
+  background-size: 400% 400%;
+  animation: gradient 2s linear infinite;
+}
+
+.menu .menu-item:active {
+  color: #b3b2b2;
+  box-shadow: none;
+  background: rgb(23, 2, 68);
+  background: linear-gradient(4deg,
+      rgba(23, 2, 68, 1) 0%,
+      rgba(26, 0, 93, 1) 35%,
+      rgba(39, 0, 129, 1) 100%);
+  transition: all 0.3s ease;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
 }
