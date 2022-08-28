@@ -44,16 +44,12 @@ export class ToastyModule extends Module {
 	}
 
 	#setup() {
-		this.onAnimationEnd = this.onAnimationEnd.bind(this);
-		this.#toastyContainer.addEventListener('animationend', this.onAnimationEnd);
-	}
-
-	onAnimationEnd(event) {
-		this.destroy();
+		this.#toastyContainer.addEventListener('animationend', (event) => {
+			this.destroy();
+		}, { once: true });
 	}
 
 	destroy() {
-		this.#toastyContainer?.removeEventListener('animationend', this.onAnimationEnd);
 		this.#toastyContainer?.remove();
 		this.#isRunning = false;
 	}
