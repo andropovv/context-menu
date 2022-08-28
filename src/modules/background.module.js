@@ -20,7 +20,7 @@ export class BackgroundModule extends Module {
     this.#photoArray = [];
   }
   async trigger() {
-    console.log(getRandomColor());
+
     if (this.#photoArray.length > 0) {
       this.#changeBg();
     } else {
@@ -38,8 +38,7 @@ export class BackgroundModule extends Module {
     }
   }
   #changeBg() {
-    this.#body.style.backgroundImage = `url(${
-      this.#photoArray[random(0, this.#photoArray.length - 1)]
-    })`;
+    this.#body.style.backgroundImage = `url(${this.#photoArray[random(0, this.#photoArray.length - 1)]
+      })`;
   }
 }
