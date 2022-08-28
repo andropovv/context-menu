@@ -27,7 +27,7 @@ export class QuoteModule extends Module {
 		},
 		{
 			author: 'Владилен Минин',
-			message: '42 — ответ на все вопросы. '
+			message: '42 — ответ на все вопросы.'
 		}
 	];
 
