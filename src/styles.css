@@ -23,12 +23,10 @@ body {
   min-width: 150px;
   max-width: 300px;
   background: rgb(0, 0, 0);
-  background: linear-gradient(
-    4deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(46, 46, 46, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: linear-gradient(4deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(46, 46, 46, 1) 35%,
+      rgba(0, 0, 0, 1) 100%);
   border-radius: 5px;
   list-style: none;
   opacity: 0;
@@ -48,7 +46,7 @@ body {
 }
 
 .menu .menu-item {
-  padding: 8px 10px;
+  padding: 10px 15px;
   font-size: 1rem;
   color: rgb(143, 143, 143);
   cursor: pointer;
@@ -74,12 +72,10 @@ body {
   color: #b3b2b2;
   box-shadow: none;
   background: rgb(23, 2, 68);
-  background: linear-gradient(
-    4deg,
-    rgba(23, 2, 68, 1) 0%,
-    rgba(26, 0, 93, 1) 35%,
-    rgba(39, 0, 129, 1) 100%
-  );
+  background: linear-gradient(4deg,
+      rgba(23, 2, 68, 1) 0%,
+      rgba(26, 0, 93, 1) 35%,
+      rgba(39, 0, 129, 1) 100%);
   transition: all 0.3s ease;
 }
 

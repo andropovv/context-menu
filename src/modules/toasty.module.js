@@ -13,16 +13,16 @@ export class ToastyModule extends Module {
 		super(type, text);
 
 		this.#isRunning = false;
-
 	}
 
 	trigger() {
-		this.#create();
-		Utils.playAudio(ToastySound);
+		if (this.#isRunning) {
+			return;
+		}
 
-		setTimeout(() => {
-			this.destroy();
-		}, 2000);
+		this.#create();
+		this.#setup();
+		Utils.playAudio(ToastySound);
 	}
 
 	#create() {
@@ -40,9 +40,21 @@ export class ToastyModule extends Module {
 		this.#toastyContainer.append(img, text);
 
 		document.body.append(this.#toastyContainer);
+		this.#isRunning = true;
+	}
+
+	#setup() {
+		this.onAnimationEnd = this.onAnimationEnd.bind(this);
+		this.#toastyContainer.addEventListener('animationend', this.onAnimationEnd);
+	}
+
+	onAnimationEnd(event) {
+		this.destroy();
 	}
 
 	destroy() {
+		this.#toastyContainer?.removeEventListener('animationend', this.onAnimationEnd);
 		this.#toastyContainer?.remove();
+		this.#isRunning = false;
 	}
 }
