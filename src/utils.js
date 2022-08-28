@@ -24,3 +24,8 @@ export function getRandomColor() {
   }
   return color;
 }
+
+export function createHTMLTag(tag) {
+  const HTML = document.createElement(tag);
+  return HTML;
+}
