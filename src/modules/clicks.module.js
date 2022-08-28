@@ -34,7 +34,7 @@ export class ClicksModule extends Module {
 
     this.#startAnalysHTML = createHTMLTag("h2");
     this.#startAnalysHTML.className = "head";
-    this.#startAnalysHTML.innerText = "Анализ кликов активирован:";
+    this.#startAnalysHTML.innerText = "Анализ кликов активирован";
   }
 
   trigger() {
@@ -82,7 +82,7 @@ export class ClicksModule extends Module {
   }
   // Что нужно делать при одинарном клике
   #clickHandler() {
-    if (event.target === document.body) {
+    if (event.target === document.body || event.target === this.#clickContainer) {
       this.#timeOut = setTimeout(() => {
         this.#clickCounter++;
         this.#clickHTML.innerText = `Одиночных кликов: ${this.#clickCounter}`;
@@ -90,7 +90,6 @@ export class ClicksModule extends Module {
           this.#clickCounter + 2 * this.#dblClickCounter
         }`;
       }, 200);
-      console.log(event.target);
     }
     
   }
