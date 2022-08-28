@@ -15,6 +15,7 @@ body {
 }
 
 .menu {
+  box-shadow: 0 0 15px #ffffff70;
   position: fixed;
   z-index: 1000;
   width: 150px;
@@ -27,20 +28,19 @@ body {
   );
 
   border-radius: 5px;
-  display: none;
+  display: block;
   list-style: none;
-  animation-name: open-menu;
-  animation-duration: 5s;
+  opacity: 0;
+  transition: opacity 0.1s ease;
 }
 
 .open {
-  display: block;
+  opacity: 1;
 }
 
 .count-size {
-  display: block;
   opacity: 0;
-  left: 10000px;
+  left: -10000px;
 }
 
 .menu .menu-item {
@@ -72,30 +72,6 @@ body {
     rgba(39, 0, 129, 1) 100%
   );
   transition: all 0.3s ease;
-}
-
-@keyframes open-menu {
-  0% {
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes item-open {
-  0% {
-    color: white;
-  }
-  50% {
-    color: rgb(255, 255, 255);
-  }
-  100% {
-    color: rgb(143, 143, 143);
-  }
 }
 
 @keyframes gradient {
