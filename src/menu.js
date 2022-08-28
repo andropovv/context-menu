@@ -1,95 +1,143 @@
-import { Menu } from './core/menu'
-import { Module } from './core/module';
+import { Menu } from "./core/menu";
+import { Module } from "./core/module";
 
 export class ContextMenu extends Menu {
-	#moduleList // список модулей, подключенных к контекстному меню
-	#contextMenuContainer // селектор контейнера, при клике на который вызывается контекстное меню
+  #moduleList; // список модулей, подключенных к контекстному меню
+  #contextMenuContainer; // селектор контейнера, при клике на который вызывается контекстное меню
 
-	constructor(selector, containerSelector) {
-		super(selector);
+  constructor(selector, containerSelector) {
+    super(selector);
 
-		this.containerSelector = containerSelector || 'body'; // по умолчанию считаем что клик будет по всему документу
+    this.containerSelector = containerSelector || "body"; // по умолчанию считаем что клик будет по всему документу
 
-		this.#contextMenuContainer = document.querySelector(this.containerSelector);
-		this.#moduleList = [];
+    this.#contextMenuContainer = document.querySelector(this.containerSelector);
+    this.#moduleList = [];
 
-		this.#render(); // создаем элементы контекстного меню
-		this.#setup(); // подключаем к неему обработчики
-	}
+    this.#render(); // создаем элементы контекстного меню
+    this.#setup(); // подключаем к неему обработчики
+  }
 
-	// отрисовка контекстного меню
-	#render() {
-		this.el.classList.add('menu');
-		this.el.innerHTML = '';
+  // отрисовка контекстного меню
+  #render() {
+    this.el.classList.add("menu");
+    this.el.innerHTML = "";
 
-		this.#moduleList.forEach(module => {
-			this.el.insertAdjacentHTML('beforeend', module.toHTML()); // добавляемм в меню каждый подключенный модуль
-		});
-	}
+    this.#moduleList.forEach((module) => {
+      this.el.insertAdjacentHTML("beforeend", module.toHTML()); // добавляемм в меню каждый подключенный модуль
+    });
+  }
 
-	// установка обработчиков для контекстного меню
-	#setup() {
+  // установка обработчиков для контекстного меню
+  #setup() {
+    this.contextOpenHandler = this.contextOpenHandler.bind(this); // привязываем контекст к обработчику событий
+    this.#contextMenuContainer.addEventListener(
+      "contextmenu",
+      this.contextOpenHandler
+    );
 
-		this.contextOpenHandler = this.contextOpenHandler.bind(this); // привязываем контекст к обработчику событий
-		this.#contextMenuContainer.addEventListener('contextmenu', this.contextOpenHandler);
+    this.contextClickHandler = this.contextClickHandler.bind(this); // привязываем контекст к обработчику событий
+    this.el.addEventListener("click", this.contextClickHandler);
+  }
 
-		this.contextClickHandler = this.contextClickHandler.bind(this); // привязываем контекст к обработчику событий
-		this.el.addEventListener('click', this.contextClickHandler);
-	}
+  // обработчик вызова контекстного меню
+  contextOpenHandler(event) {
+    // ничего не делаем, если к контекстному меню не привязано ни одного модуля
+    if (!this.#moduleList.length) {
+      return false;
+    }
 
-	// обработчик вызова контекстного меню
-	contextOpenHandler(event) {
-		// ничего не делаем, если к контекстному меню не привязано ни одного модуля
-		if (!this.#moduleList.length) {
-			return false;
-		}
+    event.preventDefault();
 
-		event.preventDefault();
+    // позиционируем меню
 
-		// позиционируем меню
-		this.el.style.top = `${event.clientY}px`;
-		this.el.style.left = `${event.clientX}px`;
+    const location = this.getLocation(event);
 
-		this.open();
-	}
+    this.close();
 
-	// обработчик нажатия на пункты меню
-	contextClickHandler(event) {
-		const { target } = event;
-		if (target.dataset?.type) {
-			const mod = this.#moduleList.find(module => module.type === target.dataset.type)
-			mod?.trigger();
-		}
-		this.close();
-	}
+    this.el.style.left = `${location[0]}px`;
+    this.el.style.top = `${location[1]}px`;
 
-	// открытие контекстного меню
-	open() {
-		this.el.classList.add('open');
-	}
+    this.open();
+  }
 
-	// закрытие контекстного меню
-	close() {
-		this.el.classList.remove('open');
-	}
+  getLocation(event) {
+    const x = event.clientX;
+    const y = event.clientY;
 
-	// добавление модуля к контекстному меню
-	add(module) {
-		// проверяем что модуль передан и относится к классу Module
-		if (!module || !module instanceof Module) {
-			return;
-		}
+    let location = [x, y];
+    const menuSize = this.countMenuSize();
 
-		this.#moduleList.push(module);
-		this.#render(); // перерисовываем контекстное меню
-	}
+    if (this.distanceToBottom(event)) location[1] = y - menuSize[1];
+    if (this.distanceToRightSide(event)) location[0] = x - menuSize[0];
 
-	// удаление
-	destroy() {
-		this.el.classList.remove('menu', 'open');
+    return location;
+  }
 
-		// удаляем прикрепленные обработики событий
-		this.#contextMenuContainer.removeEventListener('contextmenu', this.contextOpenHandler);
-		this.el.removeEventListener('click', this.contextClickHandler);
-	}
+  // Вычисление размера меню
+  countMenuSize() {
+    let menuSize = [];
+
+    this.el.classList.add("count-size");
+    menuSize[0] = this.el.offsetWidth;
+    menuSize[1] = this.el.offsetHeight;
+
+    this.el.classList.remove("count-size");
+
+    return menuSize;
+  }
+
+  // Расстояние до нижней границы
+  distanceToBottom(event) {
+    return window.innerHeight - event.clientY < this.countMenuSize()[1];
+  }
+
+  // Расстояние до правой границы
+  distanceToRightSide(event) {
+    return window.innerWidth - event.clientX < this.countMenuSize()[0];
+  }
+
+  // обработчик нажатия на пункты меню
+  contextClickHandler(event) {
+    const { target } = event;
+    if (target.dataset?.type) {
+      const mod = this.#moduleList.find(
+        (module) => module.type === target.dataset.type
+      );
+      mod?.trigger();
+    }
+    this.close();
+  }
+
+  // открытие контекстного меню
+  open() {
+    this.el.classList.add("open");
+  }
+
+  // закрытие контекстного меню
+  close() {
+    this.el.classList.remove("open");
+  }
+
+  // добавление модуля к контекстному меню
+  add(module) {
+    // проверяем что модуль передан и относится к классу Module
+    if (!module || !module instanceof Module) {
+      return;
+    }
+
+    this.#moduleList.push(module);
+    this.#render(); // перерисовываем контекстное меню
+  }
+
+  // удаление
+  destroy() {
+    this.el.classList.remove("menu", "open");
+
+    // удаляем прикрепленные обработики событий
+    this.#contextMenuContainer.removeEventListener(
+      "contextmenu",
+      this.contextOpenHandler
+    );
+    this.el.removeEventListener("click", this.contextClickHandler);
+  }
 }
