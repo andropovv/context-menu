@@ -182,6 +182,10 @@
   top: 40px;
 }
 
+.figure {
+  animation: remove-shape 5s;
+}
+
 @keyframes remove-shape {
   0% {
     opacity: 1;
