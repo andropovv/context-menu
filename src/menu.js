@@ -1,5 +1,16 @@
 import { Menu } from "./core/menu";
 import { Module } from "./core/module";
+import { playAudio, random } from "./utils";
+import Sound1 from "./assets/audio/modulesSound/sound1.mp3";
+import Sound2 from "./assets/audio/modulesSound/sound2.mp3";
+import Sound3 from "./assets/audio/modulesSound/sound3.mp3";
+import Sound4 from "./assets/audio/modulesSound/sound4.mp3";
+import Sound5 from "./assets/audio/modulesSound/sound5.mp3";
+import Sound6 from "./assets/audio/modulesSound/sound6.mp3";
+import Sound7 from "./assets/audio/modulesSound/sound7.mp3";
+import Sound8 from "./assets/audio/modulesSound/sound8.mp3";
+import Sound9 from "./assets/audio/modulesSound/sound9.mp3";
+import Sound10 from "./assets/audio/modulesSound/sound10.mp3";
 
 export class ContextMenu extends Menu {
   #moduleList; // список модулей, подключенных к контекстному меню
@@ -15,6 +26,18 @@ export class ContextMenu extends Menu {
 
     this.#render(); // создаем элементы контекстного меню
     this.#setup(); // подключаем к неему обработчики
+    this.soudsArray = [
+      Sound1,
+      Sound2,
+      Sound3,
+      Sound4,
+      Sound5,
+      Sound6,
+      Sound7,
+      Sound8,
+      Sound9,
+      Sound10,
+    ];
   }
 
   // отрисовка контекстного меню
@@ -96,6 +119,10 @@ export class ContextMenu extends Menu {
     return window.innerWidth - event.clientX < this.countMenuSize()[0];
   }
 
+  getRandomSound() {
+    return this.soudsArray[random(0, this.soudsArray.length - 1)];
+  }
+
   // обработчик нажатия на пункты меню
   contextClickHandler(event) {
     const { target } = event;
@@ -104,6 +131,8 @@ export class ContextMenu extends Menu {
         (module) => module.type === target.dataset.type
       );
       mod?.trigger();
+      const sound = this.getRandomSound();
+      playAudio(sound);
     }
     this.close();
   }
