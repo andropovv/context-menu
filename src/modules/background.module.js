@@ -20,6 +20,7 @@ export class BackgroundModule extends Module {
     this.#photoArray = [];
   }
   async trigger() {
+    console.log(getRandomColor());
     if (this.#photoArray.length > 0) {
       this.#changeBg();
     } else {
@@ -29,7 +30,8 @@ export class BackgroundModule extends Module {
         this.#photoArray = photos.map((el) => el.urls.full);
         this.#changeBg();
       } catch (e) {
-        getRandomColor()
+        console.error(e);
+        this.#body.style.backgroundColor = getRandomColor();
       } finally {
         this.#loader.remove();
       }
@@ -41,5 +43,3 @@ export class BackgroundModule extends Module {
     })`;
   }
 }
-
-
