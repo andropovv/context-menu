@@ -337,3 +337,9 @@
 		transform: none;
 	}
 }
+
+@media (max-width: 575.98px) {
+	.timer-modal__body h3 {
+		font-size: 1rem;
+	}
+}

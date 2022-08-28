@@ -14,7 +14,18 @@ export class ShapeModule extends Module {
     this.type = type;
     this.text = text;
     this.size = [0, 0];
-    this.figures = ["square", "circle", "heart"];
+    this.figures = [
+      "square",
+      "circle",
+      "heart",
+      "flower",
+      "leaf",
+      "cloud",
+      "loader",
+      "comment",
+      "moon",
+      "cross",
+    ];
   }
 
   trigger() {
@@ -22,28 +33,14 @@ export class ShapeModule extends Module {
 
     document.body.append(figure);
 
-    this.addTransform = this.addTransform.bind(this);
-    this.removeTransform = this.removeTransform.bind(this);
-
-    figure.addEventListener("mouseover", (e) => this.addTransform(e.target));
-    figure.addEventListener("mouseleave", (e) =>
-      this.removeTransform(e.target)
-    );
-
     setTimeout(() => {
       this.removeFigure(figure);
-      figure.removeEventListener("mouseover", (e) =>
-        this.addTransform(e.target)
-      );
-      figure.removeEventListener("mouseleave", (e) =>
-        this.removeTransform(e.target)
-      );
     }, 5000);
   }
 
   addTransform(element) {
-    element.style.transform = `rotate(${random(90, 360)}deg)`;
-    element.style.transition = `all ease 5s`;
+    element.style.transform = `rotate(${random(-360, 360)}deg)`;
+    element.style.transition = `all ease-in 2s`;
   }
 
   removeTransform(element) {
@@ -52,13 +49,18 @@ export class ShapeModule extends Module {
 
   createFigure() {
     const figure = document.createElement("div");
-    figure.classList.add(this.getRandomClass());
+    figure.classList.add(this.getRandomClass(), "figure");
     figure.style.transform = `scale(${random(2, 10) / 10})`;
     figure.style.borderColor = getRandomColor();
 
     figure.style.position = "absolute";
     figure.style.left = `${this.getRandomPosition()[1]}px`;
     figure.style.top = `${this.getRandomPosition()[0]}px`;
+
+    figure.addEventListener("mouseover", (e) => this.addTransform(e.target));
+    figure.addEventListener("mouseleave", (e) =>
+      this.removeTransform(e.target)
+    );
 
     return figure;
   }
@@ -76,5 +78,9 @@ export class ShapeModule extends Module {
 
   removeFigure(figure) {
     document.body.removeChild(figure);
+    figure.removeEventListener("mouseover", (e) => this.addTransform(e.target));
+    figure.removeEventListener("mouseleave", (e) =>
+      this.removeTransform(e.target)
+    );
   }
 }

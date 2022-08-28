@@ -53,8 +53,147 @@
   transform-origin: 100% 100%;
 }
 
-.message {
-  color: rgb(172, 49, 49);
-  transform: scale(0.5);
-  transition: all ease 2s;
+.flower {
+  width: 20px;
+  height: 20px;
+  margin: 0 0 30px 10px;
+  border: 3px solid #ad1e21;
+  background: #eb4e48;
+  position: relative;
+  transform: rotate(45deg);
+}
+.flower:before,
+.flower:after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 50px;
+  border: 3px solid #ad1e21;
+  transform: rotate(-45deg);
+}
+.flower:before {
+  background: #f8d9d1;
+  border-radius: 0 100% 50% 90%;
+}
+.flower:after {
+  left: 10px;
+  top: -10px;
+  background: #f09c9c;
+  border-radius: 100% 0 90% 50%;
+}
+
+.leaf {
+  width: 5em;
+  height: 5em;
+  margin: 1em 1em;
+  background: #02c986;
+  border-radius: 100% 0;
+}
+
+.cloud {
+  position: relative;
+  width: 3em;
+  height: 3em;
+  margin: 2em;
+  background: #d5dee9;
+  border-width: 0.25em;
+  border-style: solid;
+  border-color: #6e839e;
+  border-radius: 50% 50% 0 0;
+}
+.cloud:before,
+.cloud:after {
+  content: "";
+  position: absolute;
+  bottom: -0.25em;
+  background: inherit;
+  border-width: 0.25em;
+  border-style: solid;
+  border-color: #6e839e;
+}
+.cloud:before {
+  left: 80%;
+  width: 60%;
+  height: 60%;
+  border-left: none;
+  border-radius: 50% 50% 50% 0;
+}
+.cloud:after {
+  right: 80%;
+  width: 80%;
+  height: 80%;
+  border-right: none;
+  border-radius: 50% 50% 0;
+}
+
+.loader {
+  width: 0;
+  height: 0;
+  margin: 60px;
+  border: 13px solid transparent;
+  border-radius: 50%;
+  box-shadow: -30px -30px 0 0 red, 30px 30px 0 0 blue, -30px 30px 0 0 yellow,
+    30px -30px 0 0 grey, 0 -45px 0 0 orange, 0 45px 0 0 aqua, 45px 0 0 0 brown,
+    -45px 0 0 0 crimson;
+}
+
+.comment {
+  width: 150px;
+  height: 80px;
+  margin-left: 26px;
+  background: #b5ddd4;
+  position: relative;
+  border-radius: 10px;
+}
+.comment:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 100%;
+  top: calc(50% - 12px);
+  border-top: 12px solid transparent;
+  border-right: 24px solid #b5ddd4;
+  border-bottom: 12px solid transparent;
+}
+
+.moon {
+  width: 100px;
+  height: 100px;
+  margin: -20px 0 20px 0;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0 0 #fec712;
+}
+
+.cross {
+  background: #cd6d45;
+  height: 100px;
+  width: 20px;
+  position: relative;
+  left: 40px;
+}
+.cross:after {
+  content: "";
+  height: 20px;
+  width: 100px;
+  background: #cd6d45;
+  position: absolute;
+  left: -40px;
+  top: 40px;
+}
+
+.figure {
+  animation: remove-shape 5s;
+}
+
+@keyframes remove-shape {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
